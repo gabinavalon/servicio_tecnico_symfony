@@ -14,6 +14,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
 
 class LoginFormAuthenticator extends AbstractLoginFormAuthenticator {
 
@@ -36,12 +37,13 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator {
                 new UserBadge($email),
                 new PasswordCredentials($request->request->get('password', '')),
                 [
-            new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),
+            new RememberMeBadge('authenticate', $request->request->get('_csrf_token')),
                 ]
         );
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response {
+        
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($this->urlGenerator->generate('listado_clientes'));
         }
