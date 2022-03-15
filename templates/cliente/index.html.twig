@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ver Clientes{% endblock %}
+
+{% block body %}
+    <h1>Clientes</h1>
+    <br>
+    {% for flash_message in app.session.flashbag.get('aviso') %}
+        <div class="flash-notice">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+
+    <table class="table align-middle mb-0 bg-white" style="-webkit-box-shadow: 8px 9px 19px 7px rgba(0,0,0,0.69);
+           box-shadow: 8px 9px 19px 7px rgba(0,0,0,0.69);
+           border-radius: 5px">
+        <thead class="bg-light">
+            <tr>
+                <th>Nombre cliente</th>
+                <th>Contacto</th>
+                <th>Dirección</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in clientes %}
+                <tr>
+                    <td>
+                        <a href="{{ path("ver_cliente",{id:cliente.id}) }}">
+                            <div class="d-flex align-items-center">
+                                <img
+                                    src="https://us.123rf.com/450wm/123vector/123vector1701/123vector170100481/68591525-ilustraci%C3%B3n-del-usuario-l%C3%ADnea-delgada-icono-de-dise%C3%B1o.jpg?ver=6"
+                                    alt="foto_cliente"
+                                    style="width: 45px; height: 45px"
+                                    class="rounded-circle"
+                                    />
+                                <div class="ms-3">
+                                    <p class="fw-bold mb-1">{{cliente.nombre}}</p>
+                                    <p class="text-muted mb-0">{{cliente.apellidos}}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </td>
+                    <td>
+                        <p class="fw-normal mb-1">{{ cliente.telefono }}</p>
+                    </td>
+                    <td>
+                        <span class="fw-normal mb-1">{{ cliente.direccion }}</span>
+                    </td>
+                    <td>
+                        <a  href="{{ path("borrar_cliente",{id:cliente.id}) }}"
+                            class="btn btn-danger btn-sm active" role="button" aria-pressed="true">
+                            Borrar
+                        </a>
+                    </td>
+                </tr>
+            {%  endfor %}
+        </tbody>  
+    </table>
+    <br>
+    <hr>
+    <br>
+
+    <a href="{{ path("insertar_cliente") }}"  class="btn btn-info btn-sm active" role="button" aria-pressed="true">Insertar cliente</a>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Insertar incidencia{% endblock %}
+
+{% block body %}
+    <div class="row mt-3    ">
+
+        <div class="col-4">
+        </div>
+        <div class="col-4 p-5" style="-webkit-box-shadow: 8px 9px 19px 7px rgba(0,0,0,0.69);
+             box-shadow: 8px 9px 19px 7px rgba(0,0,0,0.69);
+             border-radius: 5px;
+             background-color: white;">
+            <h1>Insertar incidencia</h1>
+
+            {{ form_start(crearincidenciaForm) }}
+            {{ form_row(crearincidenciaForm.titulo)}}
+
+            {{ form_row(crearincidenciaForm.fecha_creacion) }}
+
+            {{ form_row(crearincidenciaForm.estado) }}
+
+            {{ form_row(crearincidenciaForm.usuario) }}
+
+            {{ form_row(crearincidenciaForm.cliente) }}
+
+            {{ form_row(crearincidenciaForm.save) }}
+            {{ form_end(crearincidenciaForm) }} <br>
+        </div>
+        <div class="col-4">
+        </div>
+    </div>
+    <br>
+    <hr>
+    <br>
+
+    <a href="{{ path("listado_incidencias") }}" role="button" class="btn-lg">
+        Volver a incidencias
+    </a>  <br>
+
+{% endblock %}

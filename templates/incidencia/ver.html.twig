@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ver incidencia{% endblock %}
+
+{% block body %}
+    <h2>Incidencia</h2>
+    {% for flash_message in app.session.flashbag.get('aviso') %}
+        <div class="flash-notice">
+            <p class="alert alert-info">  {{ flash_message }} </p>
+        </div>
+    {% endfor %}
+    <div class="card">
+        <div class="card-header">
+            Incidencia con identificador {{ incidencia.id }}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ incidencia.titulo }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Usuario encargado: {{ incidencia.usuario.nombre }} {{ incidencia.usuario.apellidos }}</h6>
+             <p class="card-text">
+                 Cliente al que afecta: <b> {{ incidencia.cliente.nombre }} {{ incidencia.cliente.apellidos }} </b> <br>
+                    Estado actual: {{ incidencia.estado }} <br>
+                    Fecha de creación: {{ incidencia.fechacreacion | date("d-m-Y") }} 
+            </p>
+           <a href="{{ path("editar_incidencia",{id:incidencia.id}) }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Modificar</a>
+                        <a href="{{ path("borrar_incidencia",{id:incidencia.id}) }}" class="btn btn-danger btn-sm active" role="button" aria-pressed="true">Eliminar</a>
+            <br><hr>
+            <a href="{{ path("listado_incidencias") }}" class="btn btn-primary">Volver a incidencias</a>
+        </div>
+    </div>
+{% endblock %}

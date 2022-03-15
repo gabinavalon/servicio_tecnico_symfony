@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ver cliente{% endblock %}
+
+{% block body %}
+    {% for flash_message in app.session.flashbag.get('aviso') %}
+        <div class="flash-notice">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+    
+    <h2>Cliente</h2>
+    ID: {{ cliente.id }}<br>
+    Nombre: {{ cliente.nombre }}<br>
+    Apellidos: {{ cliente.apellidos }}<br>
+    Teléfono: {{ cliente.telefono }}<br>
+    Dirección: {{ cliente.direccion }}<br>
+    <hr>
+    <h2>Incidencias</h2>
+    <div class="row">
+        {% for incidencia in cliente.incidencias %}
+            <div class="col-sm-3 mb-2">
+                <div class="card" style="width: 15rem; height: 15rem">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="{{ path("ver_incidencia",{id:incidencia.id}) }}">{{ incidencia.titulo }}</a></h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Usuario: {{ incidencia.usuario.nombre }} {{ incidencia.usuario.apellidos }}</h6>
+                        <p class="card-text">
+                            Cliente: {{ incidencia.cliente.nombre }} {{ incidencia.cliente.apellidos }} <br>
+                            Estado: {{ incidencia.estado }} <br>
+                            Fecha: {{ incidencia.fechacreacion | date("d-m-Y") }} 
+                        </p>
+                        <a href="{{ path("editar_incidencia",{id:incidencia.id}) }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Modificar</a>
+                        <a href="{{ path("borrar_incidencia",{id:incidencia.id}) }}" class="btn btn-danger btn-sm active" role="button" aria-pressed="true">Eliminar</a>    
+                    </div>
+                </div>
+            </div>
+        {%  endfor %}
+
+    </div>
+    <hr>
+    <a href="{{ path("insertar_incidencia_cliente",{id:cliente.id}) }}" class="btn btn-info btn-sm active" role="button" aria-pressed="true">Añadir incidencia</a> <br>
+
+
+    <br> <a href="{{ path("listado_clientes") }}" role="button" class="btn-lg">Volver</a> <br>
+
+{% endblock %}
